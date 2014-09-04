@@ -1,0 +1,99 @@
+﻿@using WebUI
+@model WebUI.ViewModel.SearchResultViewModel
+
+@{
+    ViewBag.Title = Model.SearchZoneParams.UserQuery;
+
+    var startPage = Model.SearchZoneParams.PageNumber;
+    if (Model.SearchZoneParams.PageNumber != 0)
+    {
+        startPage--;
+    }
+
+    var lastPage = Model.PagesCount;
+    if ((lastPage - startPage) > WebConstants.PaginationsCount)
+    {
+        lastPage = startPage + WebConstants.PaginationsCount;
+    }
+
+    if ((lastPage - startPage) < WebConstants.PaginationsCount)
+    {
+        startPage = lastPage - WebConstants.PaginationsCount;
+    }
+
+    if (startPage < 0)
+    {
+        startPage = 0;
+    }
+}
+
+<div class="result-zone">
+    <div class="head-search">
+        @Html.Partial("SearchZone", Model.SearchZoneParams)
+    </div>
+
+    <div class="verdana-text  result-count">
+        There is @Model.SearchResult.ResultsCount results.
+    </div>
+
+
+    <div class="search-results">
+        @foreach (var snippet in Model.SearchResult.Snippets)
+        {
+            <div class="search-result">
+                @Html.Raw(snippet.SnippetText)
+                @*Html.ActionLink(
+                    String.IsNullOrEmpty(snippet.SnippetText) ? "SomeText" : snippet.SnippetText,
+                    "RegistrateTransition",
+                    new RouteValueDictionary
+                    {
+                        {"redirectionUrl", snippet.SnippetUrl},
+                        {"fileId", snippet.FileId},
+                        {"isNeedCustomRange", Model.SearchZoneParams.IsCustomRangeEnable}
+                    })*@
+
+                <div class="result-link">
+                    @Html.ActionLink(
+                    snippet.SnippetUrl,
+                    "RegistrateTransition",
+                    new RouteValueDictionary
+                    {
+                        {"redirectionUrl", snippet.SnippetUrl},
+                        {"fileId", snippet.FileId},
+                        {"isNeedCustomRange", Model.SearchZoneParams.IsCustomRangeEnable}
+                    })
+                </div>
+
+                <div class="result-tag-list">
+                    @foreach (var tag in snippet.Tags)
+                    {
+                        <span class="result-tag">@tag</span>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="paggination-zone">
+        @for (var i = startPage; i < lastPage; i++)
+        {
+            if (i == Model.SearchZoneParams.PageNumber)
+            {
+                @:
+                <span class="page-number"> @(i + 1) </span>
+            }
+            else
+            {
+                @:
+                <span class="page-number">
+                    @Html.ActionLink((i + 1).ToString(), "GetSearchResult", new RouteValueDictionary
+                    {
+                        {"query", Model.SearchZoneParams.UserQuery},
+                        {"page", i},
+                        {"isCustomRangeEnable", Model.SearchZoneParams.IsCustomRangeEnable}
+                    })
+                </span>
+            }
+        }
+    </div>
+</div>

@@ -1,0 +1,18 @@
+﻿@model WebUI.ViewModel.SearchZoneViewModel
+
+@using (Html.BeginForm("NewSearch", "Search", FormMethod.Get))
+{
+    @Html.TextBox(
+        "query",
+        Model.UserQuery,
+        new Dictionary<string, object> 
+        { 
+            { "class", "search-input" }
+        })
+    
+    <div class="custom-range">
+        <span>Собирать о вас данные? </span>
+        
+        @Html.CheckBox("isCustomRangeEnable", Model.IsCustomRangeEnable)
+    </div>
+}

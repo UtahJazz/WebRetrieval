@@ -1,0 +1,6 @@
+TfIdf 70
+WordNearest 100
+TagBased 90
+TitleBased 70
+VoteBased 10
+UserPreference 70

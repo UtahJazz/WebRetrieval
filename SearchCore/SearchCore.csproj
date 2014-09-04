@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0F5E9771-FD6F-4866-82A6-DE19B28ED634}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SearchCore</RootNamespace>
+    <AssemblyName>SearchCore</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Google.ProtocolBuffers">
+      <HintPath>..\packages\Google.ProtocolBuffers.2.4.1.521\lib\net40\Google.ProtocolBuffers.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.ProtocolBuffers.Serialization">
+      <HintPath>..\packages\Google.ProtocolBuffers.2.4.1.521\lib\net40\Google.ProtocolBuffers.Serialization.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>..\packages\HtmlAgilityPack.1.4.6\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="protobuf-net">
+      <HintPath>..\packages\protobuf-net.2.0.0.668\lib\net40\protobuf-net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DirectoryProvider\DirectoryProvider.cs" />
+    <Compile Include="DirectoryProvider\DirectoryProviderFactory.cs" />
+    <Compile Include="DirectoryProvider\IDirectoryProvider.cs" />
+    <Compile Include="FileIdMatcher\IFileIdMatcher.cs" />
+    <Compile Include="FileIdMatcher\ByNameFileIdMatcher.cs" />
+    <Compile Include="IndexBuilder\IReverseIndexBuilder.cs" />
+    <Compile Include="IndexBuilder\ReverseIndexBuilder.cs" />
+    <Compile Include="Index\IIndex.cs" />
+    <Compile Include="Index\IIndexLoader.cs" />
+    <Compile Include="Index\InFileIndexLoader.cs" />
+    <Compile Include="Index\InMemoryIndex.cs" />
+    <Compile Include="Index\WordStatistics.cs" />
+    <Compile Include="Metadata\DocumentMetadataBuilder.cs" />
+    <Compile Include="Metadata\IMetadata.cs" />
+    <Compile Include="Metadata\IMetadataFactory.cs" />
+    <Compile Include="Metadata\IMetadataLoader.cs" />
+    <Compile Include="Metadata\IMetadataPool.cs" />
+    <Compile Include="Metadata\InFileMetadataLoader.cs" />
+    <Compile Include="Metadata\InMemoryMetadata.cs" />
+    <Compile Include="Metadata\InMemoryMetadataFactory.cs" />
+    <Compile Include="Metadata\InMemoryMetadataPool.cs" />
+    <Compile Include="Metadata\MetadataPoolLoader.cs" />
+    <Compile Include="Metadata\WordPosition.cs" />
+    <Compile Include="Microtest\MicrotestData.cs" />
+    <Compile Include="Parsers\BlockTextBuilder\HtmlTextBlockBuilder.cs" />
+    <Compile Include="Parsers\BlockTextBuilder\IBlockTextBuilder.cs" />
+    <Compile Include="Parsers\IContentLoader.cs" />
+    <Compile Include="Parsers\MicrotestParser.cs" />
+    <Compile Include="Parsers\PageContent.cs" />
+    <Compile Include="Parsers\ParametersNormalizer.cs" />
+    <Compile Include="Parsers\StackoverflowContentLoader.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Ranger\ParametersReducer\FileBasedWeightsReducer.cs" />
+    <Compile Include="Ranger\ParametersReducer\HardcodedWeightsReducer.cs" />
+    <Compile Include="Ranger\ParametersReducer\IParametersResucer.cs" />
+    <Compile Include="Ranger\ParametersReducer\SumBasedReducer.cs" />
+    <Compile Include="Ranger\IRanger.cs" />
+    <Compile Include="Ranger\RangerFilter\IRankParameterCalculator.cs" />
+    <Compile Include="Ranger\RangerFilter\ParameterCalculatorsAggregator.cs" />
+    <Compile Include="Ranger\RangerFilter\RangerParameter.cs" />
+    <Compile Include="Ranger\RangerFilter\TagBasedRankCalculator.cs" />
+    <Compile Include="Ranger\RangerFilter\TfIdfParameterCalculator.cs" />
+    <Compile Include="Ranger\RangerFilter\TitleBasedRankCalculator.cs" />
+    <Compile Include="Ranger\RangerFilter\UserPreferenceCalculator.cs" />
+    <Compile Include="Ranger\RangerFilter\VoteBasedRankCalculator.cs" />
+    <Compile Include="Ranger\RangerFilter\WordNearestParameterCalculator.cs" />
+    <Compile Include="Ranger\RangerManager.cs" />
+    <Compile Include="Ranger\RangerStub.cs" />
+    <Compile Include="Ranger\Rank.cs" />
+    <Compile Include="Searcher\DocumentSearcher.cs" />
+    <Compile Include="Searcher\ISearcher.cs" />
+    <Compile Include="Searcher\SearcherStub.cs" />
+    <Compile Include="SnippetBuilder\ISnippetBuilder.cs" />
+    <Compile Include="SnippetBuilder\ISnippetStyler.cs" />
+    <Compile Include="SnippetBuilder\SnippetBuilderStub.cs" />
+    <Compile Include="SnippetBuilder\SnippetsCompetition.cs" />
+    <Compile Include="SnippetBuilder\SnippetStylerStub.cs" />
+    <Compile Include="SnippetBuilder\TextGetters.cs" />
+    <Compile Include="SnippetBuilder\TextProcessing.cs" />
+    <Compile Include="TextFilter\ITextFilter.cs" />
+    <Compile Include="TextFilter\LightPunctuationFilter.cs" />
+    <Compile Include="TextFilter\PunctuationTextFilter.cs" />
+    <Compile Include="UserQueryProcesser\BinaryQueryOperators.cs" />
+    <Compile Include="UserQueryProcesser\IUserQueryProcesser.cs" />
+    <Compile Include="UserQueryProcesser\BinaryQueryProcesser.cs" />
+    <Compile Include="UserQueryProcesser\UserQueryProcesserStub.cs" />
+    <Compile Include="UserStatistics\InFileUserStatisticsLoader.cs" />
+    <Compile Include="UserStatistics\InMemoryUserStatistics.cs" />
+    <Compile Include="UserStatistics\InMemoryUserStatisticsLoader.cs" />
+    <Compile Include="UserStatistics\IUserStatistics.cs" />
+    <Compile Include="UserStatistics\IUserStatisticsLoader.cs" />
+    <Compile Include="Utils\HtmlUtils.cs" />
+    <Compile Include="Utils\StringUtils.cs" />
+    <Compile Include="Utils\VectorUtils.cs" />
+    <Compile Include="WCF\ISearchService.cs" />
+    <Compile Include="WCF\SearchService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{2764dd9c-badf-48cf-a15b-90d9bc4a5582}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

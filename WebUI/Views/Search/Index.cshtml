@@ -1,0 +1,20 @@
+﻿@using WebUI.ViewModel
+@{
+    ViewBag.Title = "Stackoverflow Search";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="centered-main">
+    <div class="search-form">
+        <div class="search-header">
+            <img src="~/Images/stackoverflow.png" /> 
+        </div>
+        
+        @Html.Partial(
+            "SearchZone",
+            new SearchZoneViewModel(
+                userQuery: "",
+                isCustomRangeEnable: false,
+                pageNumber: 0))
+     </div>
+</div>
